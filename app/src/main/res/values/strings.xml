@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">BLOG</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Пароль</string>
+    <string name="button_login_in">ВОЙТИ</string>
+    <string name="button_registation">РЕГИСТРАЦИЯ</string>
+    <string name="text_forgot_password">Забыли пароль?</string>
+    <string name="button_send_link">ОТПРАВИТЬ ПАРОЛЬ</string>
+    <string name="logo_description">Логотип компании</string>
+    <string name="hint_nickname">Никнейм пользователя</string>
+    <string name="button_save_user">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="avatar_author">Аватар пользователя</string>
+    <string name="description_forgot_password">Введите ваш актуальный e-mail</string>
+    <string name="description_add_photo">Прикрепленная фотография</string>
+    <string name="description_add_favourite">Кнопка добавить в избранное</string>
+    <string name="comment_description">Оставить комментарий</string>
+    <string name="share_description">Поделиться постом</string>
+    <string name="title_profile">Профиль</string>
+    <string name="content_photo_profile">Фотография профиля</string>
+    <string name="button_log_out">ВЫЙТИ</string>
+    <string name="favourite_text">Избранное</string>
+    <string name="textView_myPost">Мои посты</string>
+    <string name="favourite_textView">Избранное</string>
+    <string name="text_version">Версия</string>
+    <string name="toast_send_password">Пароль успешно отправлен на указанный e-mail</string>
+    <string name="fill_all_fields_toast">Заполните все поля</string>
+    <string name="fill_email_toast">Введите e-mail</string>
+    <string name="fill_password_toast">Введите пароль</string>
+    <string name="fill_email_passord_toast">Заполните e-mail и пароль</string>
+    <string name="fill_nickName_toast">Укажите никнейм</string>
+    <string name="content_image_back">Кнопка для возврата на главный экран</string>
+    <string name="button_add_photo">ИЗМЕНИТЬ ФОТО ПРОФИЛЯ</string>
+</resources>
