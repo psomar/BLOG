@@ -48,7 +48,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         Post post = posts.get(position);
         holder.textViewTitle.setText(post.getTitle());
         holder.textViewArticle.setText(post.getArticle());
+/*
         holder.textViewAuthor.setText(post.getUser().getNickname());
+*/
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String dateText = dateFormat.format(currentDate);
@@ -64,7 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     @Override
     public int getItemCount() {
-        return posts.size();
+       return posts.size();
     }
 
     static class PostViewHolder extends RecyclerView.ViewHolder {

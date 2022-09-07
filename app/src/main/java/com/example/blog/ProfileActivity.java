@@ -38,8 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
         initViews();
         adapter = new ProfileAdapter();
         recyclerViewProfile.setAdapter(adapter);
-        recyclerViewProfile.setLayoutManager(new LinearLayoutManager(this));
-        hideActionBar();
+        recyclerViewProfile.setLayoutManager(new LinearLayoutManager(this));/*
+        hideActionBar();*/
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         setupOnClickListener();
         observeViewModel();
@@ -76,12 +76,12 @@ public class ProfileActivity extends AppCompatActivity {
         return new Intent(context, ProfileActivity.class);
     }
 
-    public void hideActionBar() {
+/*    public void hideActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-    }
+    }*/
 
     private void setTextTextView() {
         textViewVersionNumber.setText(String.valueOf(BuildConfig.VERSION_CODE));

@@ -58,9 +58,7 @@ public class MainViewModel extends ViewModel {
                 if (post == null) {
                     return;
                 }
-                if (post.equals(getPosts())) {
-                    postsFromDb.add(post);
-                }
+                postsFromDb.add(post);
                 posts.setValue(postsFromDb);
             }
 
