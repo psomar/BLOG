@@ -22,6 +22,7 @@
             android:layout_marginStart="8dp"
             android:textColor="@android:color/black"
             android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageViewAuthorComment"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="author" />
@@ -39,10 +40,10 @@
         <TextView
             android:id="@+id/textViewComment"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textColor="@android:color/black"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/imageViewAuthorComment"
             tools:text="Comment comment" />
 
@@ -51,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewComment"

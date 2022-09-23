@@ -28,21 +28,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         initViews();
         viewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
         onObserveViewModel();
+        setupOnClickListener();
+        getSupportActionBar().setTitle(R.string.forgot_password_activity);
         String email = getIntent().getStringExtra(EXTRA_EMAIL);
         editTextEmailForgot.setText(email);
-        buttonSendLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = editTextEmailForgot.getText().toString().trim();
-                if (email.length() != 0) {
-                    viewModel.resetPassword(email);
-                } else {
-                    Toast.makeText(ForgotPasswordActivity.this,
-                            R.string.fill_email_toast,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private void onObserveViewModel() {
@@ -71,6 +60,22 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private void initViews() {
         editTextEmailForgot = findViewById(R.id.editTextEmailForgot);
         buttonSendLink = findViewById(R.id.buttonSendLink);
+    }
+
+    private void setupOnClickListener() {
+        buttonSendLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = editTextEmailForgot.getText().toString().trim();
+                if (email.length() != 0) {
+                    viewModel.resetPassword(email);
+                } else {
+                    Toast.makeText(ForgotPasswordActivity.this,
+                            R.string.fill_email_toast,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public static Intent newIntent(Context context, String email) {

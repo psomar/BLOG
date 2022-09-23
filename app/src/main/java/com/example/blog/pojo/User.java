@@ -1,4 +1,4 @@
-package com.example.blog;
+package com.example.blog.pojo;
 
 public class User {
 
@@ -35,6 +35,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public String toString() {

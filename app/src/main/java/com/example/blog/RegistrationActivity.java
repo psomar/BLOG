@@ -42,6 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(RegistrationViewModel.class);
         onObserveViewModel();
         setupOnClickListener();
+        getSupportActionBar().setTitle(R.string.registation_activity);
     }
 
     private void onObserveViewModel() {

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         observeViewModel();
         setupClickListener();
+        getSupportActionBar().setTitle(R.string.login_activity);
     }
 
     public static Intent newIntent(Context context) {
@@ -100,7 +101,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null) {
-                    Intent intent = ProfileActivity.newIntent(LoginActivity.this);
+                    Intent intent = ProfileActivity.newIntent(LoginActivity.this,
+                            firebaseUser.getUid());
                     startActivity(intent);
                     finish();
                 }

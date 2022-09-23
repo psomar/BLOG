@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/imageViewPhotoAuthor"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="author" />
@@ -56,73 +57,55 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/textViewLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textColor="@color/green"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPoster"
-            tools:text="+1" />
-
-        <TextView
-            android:id="@+id/textViewDislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:textColor="@color/red"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewLike"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPoster"
-            tools:text="-1" />
-
         <View
-            android:id="@+id/view"
+            android:id="@+id/viewLine"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintBottom_toTopOf="@id/textViewLike"
-            tools:layout_editor_absoluteX="8dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewPoster" />
 
         <TextView
             android:id="@+id/textViewDataRelease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageViewPhotoAuthor"
-            tools:text="12:00 12.05" />
+            tools:text="19.09.2022" />
+
+        <ImageView
+            android:id="@+id/imageViewMenuPost"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageViewComment"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"
             android:contentDescription="@string/comment_description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            tools:src="@android:drawable/stat_notify_chat" />
+            app:layout_constraintTop_toTopOf="@+id/viewLine"
+            tools:src="@android:drawable/sym_action_chat" />
 
-        <ImageView
-            android:id="@+id/imageViewSharePost"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:contentDescription="@string/share_description"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            tools:src="@android:drawable/ic_menu_share" />
+        <TextView
+            android:id="@+id/textViewComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/hint_comment"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/imageViewComment"
+            app:layout_constraintTop_toBottomOf="@id/viewLine" />
 
         <ImageView
             android:id="@+id/imageViewPoster"
@@ -134,14 +117,6 @@
             app:layout_constraintTop_toBottomOf="@id/textViewArticle"
             tools:src="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/imageViewStar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/description_add_favourite"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@android:drawable/btn_star_big_off" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

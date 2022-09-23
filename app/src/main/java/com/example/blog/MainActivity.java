@@ -1,5 +1,7 @@
 package com.example.blog;
 
+import static com.example.blog.R.string.main_activity;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,21 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.blog.adapters.PostAdapter;
+import com.example.blog.pojo.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         initViews();
-        adapter = new PostAdapter();;
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        observeViewModel();
+        adapter = new PostAdapter();
+        ;
         recyclerViewPost.setAdapter(adapter);
         recyclerViewPost.setLayoutManager(new LinearLayoutManager(this));
-        observeViewModel();
+        getSupportActionBar().setTitle(main_activity);
     }
 
 

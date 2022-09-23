@@ -1,14 +1,14 @@
 package com.example.blog;
 
-import android.app.Application;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.blog.pojo.Post;
+import com.example.blog.pojo.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,10 +25,14 @@ public class MainViewModel extends ViewModel {
     private MutableLiveData<FirebaseUser> users = new MutableLiveData<>();
     private MutableLiveData<Boolean> login = new MutableLiveData<>();
     private MutableLiveData<List<Post>> posts = new MutableLiveData<>();
+    private MutableLiveData<User> PostUsers = new MutableLiveData<>();
+    private MutableLiveData<Boolean> postSent = new MutableLiveData<>();
+    private MutableLiveData<String> error = new MutableLiveData<>();
 
 
     private FirebaseDatabase database;
     private DatabaseReference postReference;
+    private DatabaseReference userReference;
     private FirebaseAuth auth;
 
     public MainViewModel() {
@@ -46,20 +50,28 @@ public class MainViewModel extends ViewModel {
         });
         database = FirebaseDatabase.getInstance();
         postReference = database.getReference("Post");
+        userReference = database.getReference("User");
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                PostUsers.setValue(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError e) {
+                error.setValue(e.getMessage());
+            }
+        });
         postReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                FirebaseUser currentUser = auth.getCurrentUser();
-                if (currentUser == null) {
-                    return;
+                List<Post> postList = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Post post = dataSnapshot.getValue(Post.class);
+                    postList.add(post);
                 }
-                List<Post> postsFromDb = new ArrayList<>();
-                Post post = snapshot.getValue(Post.class);
-                if (post == null) {
-                    return;
-                }
-                postsFromDb.add(post);
-                posts.setValue(postsFromDb);
+                posts.setValue(postList);
             }
 
             @Override
@@ -67,6 +79,19 @@ public class MainViewModel extends ViewModel {
 
             }
         });
+    }
+
+
+    public LiveData<List<Post>> getPosts() {
+        return posts;
+    }
+
+    public LiveData<Boolean> getPostSent() {
+        return postSent;
+    }
+
+    public LiveData<String> getError() {
+        return error;
     }
 
     public LiveData<FirebaseUser> getUser() {
@@ -77,7 +102,7 @@ public class MainViewModel extends ViewModel {
         return login;
     }
 
-    public MutableLiveData<List<Post>> getPosts() {
-        return posts;
+    public MutableLiveData<FirebaseUser> getUsers() {
+        return users;
     }
 }

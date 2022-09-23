@@ -30,4 +30,17 @@
     <string name="fill_nickName_toast">Укажите никнейм</string>
     <string name="content_image_back">Кнопка для возврата на главный экран</string>
     <string name="button_add_photo">ИЗМЕНИТЬ ФОТО ПРОФИЛЯ</string>
+    <string name="hint_text_comment">Комментарии</string>
+    <string name="registation_activity">Регистрация</string>
+    <string name="main_activity" />
+    <string name="add_post_activity">Новый пост</string>
+    <string name="login_activity">Авторизация</string>
+    <string name="forgot_password_activity">Восстановление пароля</string>
+    <string name="add_title_hint">Заголовок</string>
+    <string name="add_article_hint">Текст</string>
+    <string name="save_post_hint">ОПУБЛИКОВАТЬ</string>
+    <string name="item_menu_favourite">Добавить в избранное</string>
+    <string name="item_menu_share">Поделиться</string>
+    <string name="delete_post">Удалить</string>
+    <string name="hint_comment">Прокомментировать</string>
 </resources>
