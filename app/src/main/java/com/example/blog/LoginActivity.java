@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-                if ((password.length() != 0) && (email.length() != 0)) { // Проверяем заполнены ли все поля
+                if ((password.length() != 0) && (email.length() != 0)) {
                     viewModel.login(email, password);
                 } else {
                     Toast.makeText(LoginActivity.this,

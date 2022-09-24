@@ -106,6 +106,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                         holder.itemView.getContext().getDrawable(android.R.drawable.sym_action_chat)
                 );
         holder.textViewAuthor.setText(post.getNickname());
+        holder.textViewDataRelease.setText(post.getTimestamp());
     }
 
     @Override

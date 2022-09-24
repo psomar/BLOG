@@ -1,8 +1,11 @@
 package com.example.blog.pojo;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Post extends PostId {
+public class Post extends PostId implements Serializable {
 
 
     private String postId;
@@ -11,14 +14,15 @@ public class Post extends PostId {
     private String article;
     private String nickname;
     private String otherNick;
-    private long timestamp;
+    @ServerTimestamp
+    private String timestamp;
     private int like;
     private int dislike;
     private int urlImage;
     private int urlAuthorPhoto;
 
 
-    public Post(String postId, String userId, String title, String article, String nickname, String otherNick, long timestamp, int like, int dislike, int urlImage, int urlAuthorPhoto) {
+    public Post(String postId, String userId, String title, String article, String nickname, String otherNick, String timestamp, int like, int dislike, int urlImage, int urlAuthorPhoto) {
         this.postId = postId;
         this.userId = userId;
         this.title = title;
@@ -60,10 +64,6 @@ public class Post extends PostId {
         this.nickname = nickname;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public void setLike(int like) {
         this.like = like;
     }
@@ -92,7 +92,7 @@ public class Post extends PostId {
         return postId;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 

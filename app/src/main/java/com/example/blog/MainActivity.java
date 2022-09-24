@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +21,13 @@ import android.widget.ProgressBar;
 import com.example.blog.adapters.PostAdapter;
 import com.example.blog.pojo.Post;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FieldValue;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     private FloatingActionButton buttonAddPost;
     private RecyclerView recyclerViewPost;
@@ -42,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         observeViewModel();
         adapter = new PostAdapter();
-        ;
         recyclerViewPost.setAdapter(adapter);
         recyclerViewPost.setLayoutManager(new LinearLayoutManager(this));
         getSupportActionBar().setTitle(main_activity);

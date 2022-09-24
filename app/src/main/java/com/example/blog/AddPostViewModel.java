@@ -26,6 +26,8 @@ import java.util.Objects;
 
 public class AddPostViewModel extends ViewModel {
 
+    private static final String TAG = "AddPostViewModel";
+
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private DatabaseReference postReference;
@@ -44,6 +46,7 @@ public class AddPostViewModel extends ViewModel {
         postReference = database.getReference("Post");
         userReference = database.getReference("User");
         auth = FirebaseAuth.getInstance();
+        String idUser = auth.getUid();
         auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -88,12 +91,16 @@ public class AddPostViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String nick = dataSnapshot.getValue(User.class).getNickname();
-                    nickname.setValue(nick);
+                    String id = dataSnapshot.getValue(User.class).getId();
+                    if (Objects.equals(idUser, id)) {
+                        nickname.setValue(nick);
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.i(TAG, error.getMessage());
             }
         });
     }
@@ -125,6 +132,10 @@ public class AddPostViewModel extends ViewModel {
         return posts;
     }
 
+    public void setNickname(MutableLiveData<String> nickname) {
+        this.nickname = nickname;
+    }
+
     public LiveData<User> getUsers() {
         return users;
     }
@@ -135,5 +146,9 @@ public class AddPostViewModel extends ViewModel {
 
     public LiveData<String> getError() {
         return error;
+    }
+
+    public LiveData<FirebaseUser> getCurrentUser() {
+        return currentUser;
     }
 }
