@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:backgroundTint="@color/dark_gray"
+    android:backgroundTint="@color/gray"
     app:cardCornerRadius="16dp"
     app:cardPreventCornerOverlap="true">
 
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="author" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewAuthorComment"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -51,6 +51,7 @@
             android:id="@+id/textViewDataComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:textColor="@android:color/black"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"

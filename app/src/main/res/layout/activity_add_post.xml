@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     android:background="#10000099"
     android:padding="8dp"
-    tools:context=".AddPostActivity">
+    tools:context=".models.AddPostActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <EditText
             android:id="@+id/editTextAddTitle"

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.blog.BuildConfig;
 import com.example.blog.R;
 import com.example.blog.pojo.User;
 
@@ -39,10 +40,20 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         User user = users.get(position);
         holder.textViewName.setText(user.getNickname());
         holder.textViewEmail.setText(user.getEmail());
-        Glide.with(holder.itemView.getContext())
-                .load(R.drawable.default_avatar)
-                .into(holder.imageViewProfileCircle);
+        if (user.getProfileImage() == null) {
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.default_avatar)
+                    .into(holder.imageViewProfileCircle);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(user.getProfileImage())
+                    .into(holder.imageViewProfileCircle);
+        }
+        holder.textViewVersionNumber.setText(BuildConfig.VERSION_NAME);
+        holder.textViewPostSize.setText(String.valueOf(user.getMyPost()));
+        holder.textViewFavouriteSize.setText(String.valueOf(user.getFavouritePost()));
     }
+
 
     @Override
     public int getItemCount() {
@@ -54,12 +65,20 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         private final ImageView imageViewProfileCircle;
         private final TextView textViewName;
         private final TextView textViewEmail;
+        private final TextView textViewFavouriteSize;
+        private final TextView textViewVersionNumber;
+        private final TextView textViewPostSize;
+
 
         public ProfileViewHolder(@NonNull View itemView) {
             super(itemView);
             imageViewProfileCircle = itemView.findViewById(R.id.imageViewProfileCircle);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewEmail = itemView.findViewById(R.id.textViewEmail);
+            textViewFavouriteSize = itemView.findViewById(R.id.textViewFavouriteSize);
+            textViewVersionNumber = itemView.findViewById(R.id.textViewVersionNumber);
+            textViewPostSize = itemView.findViewById(R.id.textViewPostSize);
+
         }
     }
 }

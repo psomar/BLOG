@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:background="#10000099"
     android:padding="8dp"
-    tools:context=".LoginActivity">
+    tools:context=".models.LoginActivity">
 
 
     <ImageView
@@ -15,18 +15,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/logo_description"
+        android:padding="32dp"
+        android:src="@drawable/main_logo"
         app:layout_constraintBottom_toTopOf="@+id/editTextEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_style"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
@@ -44,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_style"
         android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
@@ -85,5 +83,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSignIn" />
+
+    <ImageView
+        android:id="@+id/imageViewShowPassword"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/showPassword_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/editTextPassword"
+        app:srcCompat="@drawable/visibility_on" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

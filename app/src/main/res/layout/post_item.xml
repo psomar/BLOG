@@ -16,39 +16,39 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/textViewTitle"
+            android:id="@+id/textViewTitleDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewDataRelease"
+            app:layout_constraintTop_toBottomOf="@id/textViewDataReleaseDetail"
             tools:text="TITLE" />
 
         <TextView
-            android:id="@+id/textViewArticle"
+            android:id="@+id/textViewArticleDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitleDetail"
             tools:text="Article" />
 
         <TextView
-            android:id="@+id/textViewAuthor"
+            android:id="@+id/textViewAuthorDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textSize="13sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageViewPhotoAuthor"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPhotoAuthorDetail"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="author" />
 
-        <ImageView
-            android:id="@+id/imageViewPhotoAuthor"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageViewPhotoAuthorDetail"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:contentDescription="@string/avatar_author"
@@ -65,58 +65,89 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPoster" />
+            app:layout_constraintTop_toBottomOf="@id/imageViewPosterDetail" />
 
         <TextView
-            android:id="@+id/textViewDataRelease"
+            android:id="@+id/textViewDataReleaseDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPhotoAuthor"
+            app:layout_constraintTop_toBottomOf="@id/imageViewPhotoAuthorDetail"
             tools:text="19.09.2022" />
 
         <ImageView
-            android:id="@+id/imageViewMenuPost"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_dots"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
             android:id="@+id/imageViewComment"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/black"
             android:contentDescription="@string/comment_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/viewLine"
             tools:src="@android:drawable/sym_action_chat" />
 
         <TextView
+            android:id="@+id/textViewCountComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewLine"
+            tools:text="1" />
+
+        <TextView
             android:id="@+id/textViewComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:text="@string/hint_comment"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/imageViewComment"
             app:layout_constraintTop_toBottomOf="@id/viewLine" />
 
         <ImageView
-            android:id="@+id/imageViewPoster"
+            android:id="@+id/imageViewRightArrow"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_menu_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewLine" />
+
+        <TextView
+            android:id="@+id/textViewAnotherComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/imageViewComment"
+            app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+        <ImageView
+            android:id="@+id/imageViewPosterDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/description_add_photo"
-            app:layout_constraintTop_toBottomOf="@id/textViewArticle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewArticleDetail"
             tools:src="@tools:sample/avatars" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

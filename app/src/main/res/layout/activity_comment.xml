@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#10000099"
-    tools:context=".CommentActivity">
+    android:fillViewport="true"
+    tools:context=".models.CommentActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,24 +14,29 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPost"
+            android:id="@+id/recyclerViewComment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
             android:nestedScrollingEnabled="false"
+            app:layout_constraintBottom_toTopOf="@id/editTextComment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/post_item" />
+            tools:listitem="@layout/comment_item" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewComment"
+        <TextView
+            android:id="@+id/textViewNoneComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintBottom_toTopOf="@id/editTextComment"
-            app:layout_constraintTop_toBottomOf="@id/recyclerViewPost"
-            tools:listitem="@layout/comment_item" />
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:text="@string/text_view_none_comment"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editTextComment"

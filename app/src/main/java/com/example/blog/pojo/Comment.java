@@ -3,23 +3,57 @@ package com.example.blog.pojo;
 import com.example.blog.pojo.Post;
 import com.example.blog.pojo.User;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Comment {
+public class Comment implements Serializable {
 
     private String idComment;
+    private String userId;
     private String comment;
-    private Date timestamp;
-    private Post post;
+    private String nickname;
+    private String postId;
+    private String urlAuthorPhoto;
+    private String timestamp;
     private User user;
 
 
-    public Comment(String idComment, String comment, Date timestamp, Post post, User user) {
+    public Comment(String idComment, String userId, String comment, String nickname, String postId, String urlAuthorPhoto, String timestamp, User user) {
         this.idComment = idComment;
+        this.userId = userId;
         this.comment = comment;
+        this.nickname = nickname;
+        this.postId = postId;
+        this.urlAuthorPhoto = urlAuthorPhoto;
         this.timestamp = timestamp;
-        this.post = post;
         this.user = user;
+    }
+
+    public Comment() {
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getUrlAuthorPhoto() {
+        return urlAuthorPhoto;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
     }
 
     public String getIdComment() {
@@ -30,15 +64,7 @@ public class Comment {
         return comment;
     }
 
-    public Date getData() {
+    public String getData() {
         return timestamp;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public User getUser() {
-        return user;
     }
 }

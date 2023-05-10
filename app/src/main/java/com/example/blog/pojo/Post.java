@@ -1,47 +1,69 @@
 package com.example.blog.pojo;
 
+import com.google.firebase.auth.ActionCodeResult;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Post extends PostId implements Serializable {
-
 
     private String postId;
     private String userId;
     private String title;
     private String article;
     private String nickname;
-    private String otherNick;
     @ServerTimestamp
     private String timestamp;
     private int like;
     private int dislike;
-    private int urlImage;
-    private int urlAuthorPhoto;
+    private String urlImage;
+    private String urlAuthorPhoto;
+    private int countComment;
 
 
-    public Post(String postId, String userId, String title, String article, String nickname, String otherNick, String timestamp, int like, int dislike, int urlImage, int urlAuthorPhoto) {
+    public Post(String postId, String userId, String title, String article, String nickname, String timestamp, int like, int dislike, String urlImage, String urlAuthorPhoto, int countComment) {
         this.postId = postId;
         this.userId = userId;
         this.title = title;
-        this.otherNick = otherNick;
         this.article = article;
+        this.nickname = nickname;
         this.timestamp = timestamp;
         this.like = like;
         this.dislike = dislike;
         this.urlImage = urlImage;
         this.urlAuthorPhoto = urlAuthorPhoto;
-        this.nickname = nickname;
-
+        this.countComment = countComment;
     }
 
     public Post() {
     }
 
-    public String getOtherNick() {
-        return otherNick;
+
+    public int getCountComment() {
+        return countComment;
+    }
+
+    public void setCountComment(int countComment) {
+        this.countComment = countComment;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public void setUrlImage(String urlImage) {
+        this.urlImage = urlImage;
+    }
+
+    public String getUrlAuthorPhoto() {
+        return urlAuthorPhoto;
+    }
+
+    public void setUrlAuthorPhoto(String urlAuthorPhoto) {
+        this.urlAuthorPhoto = urlAuthorPhoto;
     }
 
     public void setPostId(String postId) {
@@ -72,14 +94,6 @@ public class Post extends PostId implements Serializable {
         this.dislike = dislike;
     }
 
-    public void setUrlImage(int urlImage) {
-        this.urlImage = urlImage;
-    }
-
-    public void setUrlAuthorPhoto(int urlAuthorPhoto) {
-        this.urlAuthorPhoto = urlAuthorPhoto;
-    }
-
     public String getPostId() {
         return postId;
     }
@@ -88,15 +102,11 @@ public class Post extends PostId implements Serializable {
         return nickname;
     }
 
-    public String getPotsId() {
-        return postId;
-    }
-
     public String getTimestamp() {
         return timestamp;
     }
 
-    public int getUrlImage() {
+    public String getUrlImage() {
         return urlImage;
     }
 
@@ -110,10 +120,6 @@ public class Post extends PostId implements Serializable {
 
     public String getArticle() {
         return article;
-    }
-
-    public int getUrlAuthorPhoto() {
-        return urlAuthorPhoto;
     }
 
     public int getLike() {

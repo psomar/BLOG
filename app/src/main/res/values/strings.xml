@@ -22,7 +22,7 @@
     <string name="textView_myPost">Мои посты</string>
     <string name="favourite_textView">Избранное</string>
     <string name="text_version">Версия</string>
-    <string name="toast_send_password">Пароль успешно отправлен на указанный e-mail</string>
+    <string name="toast_send_password">Информация успешно отправлена на указанный e-mail</string>
     <string name="fill_all_fields_toast">Заполните все поля</string>
     <string name="fill_email_toast">Введите e-mail</string>
     <string name="fill_password_toast">Введите пароль</string>
@@ -30,9 +30,8 @@
     <string name="fill_nickName_toast">Укажите никнейм</string>
     <string name="content_image_back">Кнопка для возврата на главный экран</string>
     <string name="button_add_photo">ИЗМЕНИТЬ ФОТО ПРОФИЛЯ</string>
-    <string name="hint_text_comment">Комментарии</string>
+    <string name="hint_text_comment">Оставить комментарий...</string>
     <string name="registation_activity">Регистрация</string>
-    <string name="main_activity" />
     <string name="add_post_activity">Новый пост</string>
     <string name="login_activity">Авторизация</string>
     <string name="forgot_password_activity">Восстановление пароля</string>
@@ -43,4 +42,27 @@
     <string name="item_menu_share">Поделиться</string>
     <string name="delete_post">Удалить</string>
     <string name="hint_comment">Прокомментировать</string>
+    <string name="title_comment">Комментарии</string>
+    <string name="description_photo_profile">Фото профиля</string>
+    <string name="description_button_add_post">Добавить новый пост</string>
+    <string name="text_view_none_comment">Оставьте первый комментарий…</string>
+    <string name="comment_is_release">Комментарий опубликован</string>
+    <string name="attention_wrong">Произошла ошибка, попробуйте ещё раз</string>
+    <string name="toast_post_published">Пост опубликован</string>
+    <string name="dateFormat">dd.MM.yyyy HH:mm</string>
+    <string name="textView_add_favourite">Добавить в избранное</string>
+    <string name="number_like">0</string>
+    <string name="main_Activity_Title">Blog</string>
+    <string name="failed_for_load_image">Ошибка при загрузке изображения</string>
+    <string name="showPassword_description">Показать введеный пароль</string>
+    <string name="overflow_Button_Description">Меню для удаления, добавления в избранное поста</string>
+    <string name="comment_Menu_Description">Меню для удаления комментария</string>
+    <string name="post_delete">Пост удален</string>
+    <string name="confirm_delete_post_title">Удаление поста</string>
+    <string name="confirm_delete_post_message">Вы уверены, что хотите удалить этот пост?</string>
+    <string name="confirm_delete_post_yes">Да</string>
+    <string name="confirm_delete_post_no">Нет</string>
+    <string name="post_added_favourite">Пост добавлен в избранное</string>
+    <string name="comment_delete">Комментарий удален</string>
+    <string name="user_has_registation">Пользователь зарегестрирован</string>
 </resources>

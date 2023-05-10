@@ -17,6 +17,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="AppTheme" parent="Theme.Material3.Light">
+        <item name="android:actionOverflowButtonStyle">@android:style/Widget.Holo.ActionButton.Overflow</item>
+    </style>
     <style name="Theme.BLOG.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.BLOG.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
