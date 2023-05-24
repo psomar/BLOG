@@ -1,4 +1,4 @@
-package com.example.blog.view;
+package com.example.blog.models;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

@@ -9,7 +9,6 @@
     app:cardCornerRadius="8dp"
     app:cardPreventCornerOverlap="true">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +64,7 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewPosterDetail" />
+            app:layout_constraintTop_toBottomOf="@id/textViewShowFullText" />
 
         <TextView
             android:id="@+id/textViewDataReleaseDetail"
@@ -83,9 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/comment_description"
+            android:src="@android:drawable/sym_action_chat"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewLine"
-            tools:src="@android:drawable/sym_action_chat" />
+            app:layout_constraintTop_toTopOf="@+id/viewLine" />
 
         <TextView
             android:id="@+id/textViewCountComments"
@@ -107,9 +106,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/hint_comment"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/imageViewComment"
             app:layout_constraintTop_toBottomOf="@id/viewLine" />
 
@@ -130,10 +131,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
             android:text=""
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/imageViewComment"
             app:layout_constraintTop_toBottomOf="@id/viewLine" />
 
@@ -141,13 +143,27 @@
             android:id="@+id/imageViewPosterDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/description_add_photo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewArticleDetail"
             tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textViewShowFullText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/text_view_show_full"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewPosterDetail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

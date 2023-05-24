@@ -17,22 +17,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewProfileCircle"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_gravity="center|start"
-            android:layout_margin="16dp"
+            android:layout_margin="22dp"
             android:cropToPadding="true"
             android:src="@drawable/default_avatar" />
+
+        <ImageView
+            android:id="@+id/imageViewChangeNick"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end|center"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="48dp"
+            android:contentDescription="@string/change_nick_user"
+            android:src="@android:drawable/ic_menu_edit" />
 
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="12dp"
             android:textSize="32sp"
             android:textStyle="bold"
             tools:text="NICK NAME" />
@@ -101,7 +111,7 @@
         android:textColor="@android:color/darker_gray"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewFavourite" />
+        app:layout_constraintTop_toBottomOf="@id/textViewFavouriteSize" />
 
     <TextView
         android:id="@+id/textViewVersionNumber"

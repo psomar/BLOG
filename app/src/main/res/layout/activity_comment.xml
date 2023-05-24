@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="#10000099"
     android:fillViewport="true"
-    tools:context=".models.CommentActivity">
-
+    tools:context=".views.CommentActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

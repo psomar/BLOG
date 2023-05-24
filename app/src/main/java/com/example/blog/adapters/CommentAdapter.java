@@ -1,7 +1,5 @@
 package com.example.blog.adapters;
 
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,26 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.blog.R;
 import com.example.blog.pojo.Comment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+//
+//  BLOG.java
+//  CommentAdapter
+//  Created by Petr Somar
+//
+
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
 
     private List<Comment> comments = new ArrayList<>();
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
@@ -60,7 +53,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         holder.textViewComment.setText(comment.getComment());
         holder.textViewDataComment.setText(comment.getData());
         Glide.with(holder.itemView.getContext())
-                .load(comment.getUrlAuthorPhoto())
+                .load(comment.getAuthorPhoto())
                 .into(holder.imageViewAuthorComment);
     }
 

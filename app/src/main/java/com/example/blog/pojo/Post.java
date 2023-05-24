@@ -17,22 +17,18 @@ public class Post extends PostId implements Serializable {
     private String nickname;
     @ServerTimestamp
     private String timestamp;
-    private int like;
-    private int dislike;
     private String urlImage;
     private String urlAuthorPhoto;
     private int countComment;
 
 
-    public Post(String postId, String userId, String title, String article, String nickname, String timestamp, int like, int dislike, String urlImage, String urlAuthorPhoto, int countComment) {
+    public Post(String postId, String userId, String title, String article, String nickname, String timestamp, String urlImage, String urlAuthorPhoto, int countComment) {
         this.postId = postId;
         this.userId = userId;
         this.title = title;
         this.article = article;
         this.nickname = nickname;
         this.timestamp = timestamp;
-        this.like = like;
-        this.dislike = dislike;
         this.urlImage = urlImage;
         this.urlAuthorPhoto = urlAuthorPhoto;
         this.countComment = countComment;
@@ -86,14 +82,6 @@ public class Post extends PostId implements Serializable {
         this.nickname = nickname;
     }
 
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    public void setDislike(int dislike) {
-        this.dislike = dislike;
-    }
-
     public String getPostId() {
         return postId;
     }
@@ -120,14 +108,6 @@ public class Post extends PostId implements Serializable {
 
     public String getArticle() {
         return article;
-    }
-
-    public int getLike() {
-        return like;
-    }
-
-    public int getDislike() {
-        return dislike;
     }
 
 }

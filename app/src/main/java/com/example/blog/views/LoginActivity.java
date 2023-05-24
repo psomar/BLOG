@@ -1,4 +1,4 @@
-package com.example.blog.models;
+package com.example.blog.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -8,8 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Base64;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.blog.view.LoginViewModel;
+import com.example.blog.models.LoginViewModel;
 import com.example.blog.R;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -41,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         observeViewModel();
         setupClickListener();
         getSupportActionBar().setTitle(R.string.login_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public static Intent newIntent(Context context) {
@@ -104,6 +104,16 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Переход к предыдущей Activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void observeViewModel() {

@@ -1,4 +1,4 @@
-package com.example.blog.models;
+package com.example.blog.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -7,12 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blog.view.ForgotPasswordViewModel;
+import com.example.blog.models.ForgotPasswordViewModel;
 import com.example.blog.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         onObserveViewModel();
         setupOnClickListener();
         getSupportActionBar().setTitle(R.string.forgot_password_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String email = getIntent().getStringExtra(EXTRA_EMAIL);
         editTextEmailForgot.setText(email);
     }
@@ -79,6 +81,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Переход к предыдущей Activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static Intent newIntent(Context context, String email) {

@@ -17,13 +17,25 @@ import com.example.blog.pojo.User;
 import java.util.ArrayList;
 import java.util.List;
 
+//
+//  BLOG.java
+//  ProfileAdapter
+//  Created by Petr Somar
+//
+
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
+
+    private onClickNickName onClickNickName;
 
     private List<User> users = new ArrayList<>();
 
     public void setProfiles(List<User> profiles) {
         this.users = profiles;
         notifyDataSetChanged();
+    }
+
+    public void setOnClickNickName(ProfileAdapter.onClickNickName onClickNickName) {
+        this.onClickNickName = onClickNickName;
     }
 
     @NonNull
@@ -52,8 +64,29 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         holder.textViewVersionNumber.setText(BuildConfig.VERSION_NAME);
         holder.textViewPostSize.setText(String.valueOf(user.getMyPost()));
         holder.textViewFavouriteSize.setText(String.valueOf(user.getFavouritePost()));
+        holder.imageViewChangeNick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onClickNickName != null) {
+                    onClickNickName.onClickNickName(user);
+                }
+            }
+        });
     }
 
+    public int getUserPosition(User user) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().equals(user.getId())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public interface onClickNickName {
+
+        void onClickNickName(User user);
+    }
 
     @Override
     public int getItemCount() {
@@ -68,6 +101,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         private final TextView textViewFavouriteSize;
         private final TextView textViewVersionNumber;
         private final TextView textViewPostSize;
+        private final ImageView imageViewChangeNick;
 
 
         public ProfileViewHolder(@NonNull View itemView) {
@@ -78,7 +112,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
             textViewFavouriteSize = itemView.findViewById(R.id.textViewFavouriteSize);
             textViewVersionNumber = itemView.findViewById(R.id.textViewVersionNumber);
             textViewPostSize = itemView.findViewById(R.id.textViewPostSize);
-
+            imageViewChangeNick = itemView.findViewById(R.id.imageViewChangeNick);
         }
     }
 }

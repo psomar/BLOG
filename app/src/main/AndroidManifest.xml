@@ -12,42 +12,48 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BLOG"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".models.PostDetailActivity"
+            android:name=".views.PostEditorActivity"
             android:exported="false" />
         <activity
-            android:name=".models.UcropperActivity"
+            android:name=".views.ProfileAnotherUserActivity"
             android:exported="false" />
         <activity
-            android:name=".models.CommentActivity"
+            android:name=".views.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".models.ProfileActivity"
+            android:name=".views.UcropperActivity"
             android:exported="false" />
         <activity
-            android:name=".models.RegistrationActivity"
+            android:name=".views.CommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.RegistrationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".models.AddPostActivity"
+            android:name=".views.AddPostActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".models.LoginActivity"
+            android:name=".views.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".models.ForgotPasswordActivity"
+            android:name=".views.ForgotPasswordActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".models.MainActivity"
+            android:name=".views.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>

@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:background="#10000099"
     android:padding="8dp"
-    tools:context=".views.AddPostActivity">
+    tools:context=".views.PostEditorActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editTextAddTitle"
+            android:id="@+id/editTextTitleEditor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextAddArticle"
+            android:id="@+id/editTextArticleEditor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -46,10 +46,22 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextAddTitle" />
+            app:layout_constraintTop_toBottomOf="@id/editTextTitleEditor" />
+
+        <ImageView
+            android:id="@+id/imageViewPhotoEditor"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/description_add_photo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/photo_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextArticleEditor" />
 
         <ProgressBar
-            android:id="@+id/progressBarPosts"
+            android:id="@+id/progressBarEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -61,32 +73,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageViewAddPhoto"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextAddArticle"
-            app:srcCompat="@drawable/photo_add" />
-
         <Button
-            android:id="@+id/buttonSavePost"
+            android:id="@+id/buttonSaveEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/purple_main"
-            android:text="@string/save_post_hint"
+            android:text="@string/button_editor"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewAddPhoto" />
+            app:layout_constraintTop_toBottomOf="@id/imageViewPhotoEditor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

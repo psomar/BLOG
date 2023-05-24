@@ -1,31 +1,31 @@
-package com.example.blog.view;
+package com.example.blog.models;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.blog.core.AuthStateListener;
 import com.example.blog.pojo.Comment;
 import com.example.blog.pojo.Post;
 import com.example.blog.pojo.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -37,6 +37,7 @@ public class CommentViewModel extends ViewModel {
     private MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>();
     private MutableLiveData<String> nickname = new MutableLiveData<>();
     private MutableLiveData<Boolean> login = new MutableLiveData<>();
+    private MutableLiveData<String> error = new MutableLiveData<>();
     private MutableLiveData<List<Post>> posts = new MutableLiveData<>();
     private MutableLiveData<String> idComment = new MutableLiveData<>();
     private MutableLiveData<String> idPost = new MutableLiveData<>();
@@ -56,18 +57,9 @@ public class CommentViewModel extends ViewModel {
     private String id;
 
     public CommentViewModel() {
+        AuthStateListener authStateListener = new AuthStateListener(currentUser, login);
         auth = FirebaseAuth.getInstance();
-        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    currentUser.setValue(firebaseAuth.getCurrentUser());
-                    login.setValue(true);
-                } else {
-                    login.setValue(false);
-                }
-            }
-        });
+        auth.addAuthStateListener(authStateListener);
         database = FirebaseDatabase.getInstance();
         postReference = database.getReference("Post");
         userReference = database.getReference("User");
@@ -76,7 +68,6 @@ public class CommentViewModel extends ViewModel {
         auth = FirebaseAuth.getInstance();
         idUser = auth.getUid();
 
-        // загружаем ник пользователя
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,17 +95,17 @@ public class CommentViewModel extends ViewModel {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError e) {
+                error.setValue(e.getMessage());
             }
         });
     }
 
-    public void deletePost(Comment comment, Post post) {
+    public void deleteComment(Comment comment, Post post) {
         DatabaseReference ref = database.getReference("Post")
                 .child(post.getPostId())
                 .child("Comment")
                 .child(comment.getIdComment());
-        Log.i("test", ref.toString());
         ref.removeValue(new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError error, DatabaseReference ref) {
@@ -156,8 +147,8 @@ public class CommentViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.i("errorFromUpdateUserPost", error.toString());
+                    public void onCancelled(@NonNull DatabaseError e) {
+                        error.setValue(e.getMessage());
                     }
                 });
     }
@@ -174,13 +165,15 @@ public class CommentViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.i("errorFromUpdateUserPost", error.toString());
+                    public void onCancelled(@NonNull DatabaseError e) {
+                        error.setValue(e.getMessage());
                     }
                 });
     }
 
-    public LiveData<String> getProfileImage(String userId) {
+    public LiveData<String> getProfileImage() {
+        String userId = auth.getCurrentUser().getUid();
+        Log.i("userId", userId);
         database.getReference("User")
                 .child(userId)
                 .addValueEventListener(new ValueEventListener() {
@@ -193,7 +186,8 @@ public class CommentViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onCancelled(@NonNull DatabaseError e) {
+                        error.setValue(e.getMessage());
                     }
                 });
         return profileImage;
@@ -211,14 +205,33 @@ public class CommentViewModel extends ViewModel {
                     Comment comment = commentSnapshot.getValue(Comment.class);
                     commentList.add(comment);
                 }
+                Collections.sort(commentList, new Comparator<Comment>() {
+                    @Override
+                    public int compare(Comment comment1, Comment comment2) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                        try {
+                            long time1 = sdf.parse(comment1.getTimestamp()).getTime();
+                            long time2 = sdf.parse(comment2.getTimestamp()).getTime();
+                            return Long.compare(time2, time1);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            return 0;
+                        }
+                    }
+                });
                 commentsLiveData.setValue(commentList);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError e) {
+                error.setValue(e.getMessage());
             }
         });
         return commentsLiveData;
+    }
+
+    public MutableLiveData<String> getError() {
+        return error;
     }
 
     public LiveData<List<Comment>> getCommentsLiveData() {

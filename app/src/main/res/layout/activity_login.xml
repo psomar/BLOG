@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:background="#10000099"
     android:padding="8dp"
-    tools:context=".models.LoginActivity">
+    tools:context=".views.LoginActivity">
 
 
     <ImageView
@@ -69,7 +69,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:backgroundTint="@color/purple_main"
         android:text="@string/button_login_in"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewForgotPassword" />
@@ -79,7 +82,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/button_registation"
+        android:backgroundTint="@color/purple_main"
+        android:text="@string/button_registration"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSignIn" />
@@ -93,5 +99,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/editTextPassword"
         app:srcCompat="@drawable/visibility_on" />
+
+    <TextView
+        android:id="@+id/textViewSignature"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:alpha="0.3"
+        android:text="@string/text_view_signature"
+        android:textColor="@color/dark_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

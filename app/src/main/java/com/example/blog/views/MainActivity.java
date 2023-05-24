@@ -1,4 +1,14 @@
-package com.example.blog.models;
+package com.example.blog.views;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -10,43 +20,30 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.example.blog.view.MainViewModel;
 import com.example.blog.R;
 import com.example.blog.adapters.PostAdapter;
 import com.example.blog.pojo.Post;
+import com.example.blog.models.MainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.List;//
+
+//  BLOG.java
+//
+//  Created by Petr Somar
+//
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String EXTRA_POST = "post";
-    private static final String EXTRA_COMMENT = "comment";
-
-    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
 
     private FloatingActionButton buttonAddPost;
     private RecyclerView recyclerViewPost;
     private ProgressBar progressBarLoading;
-    private ItemTouchHelper itemTouchHelper;
+
+    private boolean isFavourite;
+    private boolean isLogin = false;
 
     private MainViewModel viewModel;
 
@@ -76,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getLogin().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean login) {
+                isLogin = login;
                 if (login) {
                     buttonAddPost.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -111,11 +109,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        viewModel.getError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String error) {
+                Toast.makeText(MainActivity.this,
+                        error,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /*   При скроле вниз пропадает кнопка добавления поста, если начать скролить наверх, то кнопка
     вновь появляется */
-
 
     private void hideButton() {
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -131,21 +136,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void changeActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setLogo(R.drawable.main_logo);
-            actionBar.setDisplayUseLogoEnabled(true);
-        }
-    }
-
     /*    При свайпе влево добавляем пост в избранное, а при свайпе вправо удаляем пост из списка.*/
 
     public void deletingPostBySwipeAndAddFavourite() {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback
-                (0,
-                        ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT
+                (0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT
                 ) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView,
@@ -155,37 +150,93 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder,
+                                 int direction) {
+                if (auth.getCurrentUser() == null) {
+                    adapterPost.notifyItemChanged(viewHolder.getAdapterPosition());
+                    return;
+                }
                 int position = viewHolder.getAdapterPosition();
                 Post post = adapterPost.getPosts().get(position);
-                if (direction == ItemTouchHelper.RIGHT && post.getUserId().equals(auth.getCurrentUser().getUid())) {
+                boolean isAccessDelete = post.getUserId().equals(auth.getCurrentUser().getUid());
+                viewModel.toggleFavorite(post).observe(MainActivity.this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean favourite) {
+                        isFavourite = favourite;
+                    }
+                });
+                if (direction == ItemTouchHelper.RIGHT && isAccessDelete) {
                     showDeletePostDialog(post, viewHolder);
+                } else if (direction == ItemTouchHelper.LEFT && isFavourite) {
+                    showDeleteFromFavoritesDialog(post, position);
                 } else if (direction == ItemTouchHelper.LEFT) {
-                    viewModel.addPostToFavorites();
-                    Toast.makeText(MainActivity.this,
-                            R.string.post_added_favourite,
-                            Toast.LENGTH_SHORT).show();
-                    adapterPost.notifyItemChanged(position);
+                    viewModel.addPostToFavorites(post).observe(MainActivity.this, new Observer<Boolean>() {
+                        @Override
+                        public void onChanged(Boolean success) {
+                            if (success) {
+                                Toast.makeText(MainActivity.this,
+                                        R.string.post_added_favourite,
+                                        Toast.LENGTH_SHORT).show();
+                                adapterPost.notifyItemChanged(position);
+                                isFavourite = true;
+                            }
+                        }
+                    });
                 } else {
                     adapterPost.notifyItemChanged(position);
                 }
             }
-
-
         });
         itemTouchHelper.attachToRecyclerView(recyclerViewPost);
     }
 
-    private void showDeletePostDialog(Post post, RecyclerView.ViewHolder viewHolder) {
+    private void changeActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("");
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setLogo(R.mipmap.ic_launcher_round);
+            actionBar.setDisplayUseLogoEnabled(true);
+        }
+    }
+
+    private void showDeleteFromFavoritesDialog(Post post, int position) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.confirm_delete_favourite_title)
+                .setMessage(R.string.confirm_delete_favourite_messege)
+                .setPositiveButton(R.string.confirm_delete_favourite_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        viewModel.deleteFromFavorites(post);
+                        Toast.makeText(MainActivity.this,
+                                R.string.favourite_delete,
+                                Toast.LENGTH_SHORT).show();
+                        adapterPost.notifyItemChanged(position);
+                        isFavourite = false;
+                    }
+                })
+                .setNegativeButton(R.string.confirm_delete_favourite_no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        adapterPost.notifyItemChanged(position);
+                    }
+                })
+                .show();
+    }
+
+    private void showDeletePostDialog(Post post,
+                                      RecyclerView.ViewHolder viewHolder) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.confirm_delete_post_title)
                 .setMessage(R.string.confirm_delete_post_message)
                 .setPositiveButton(R.string.confirm_delete_post_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        int position = viewHolder.getAdapterPosition();
                         viewModel.deletePost(post);
                         Toast.makeText(MainActivity.this,
                                 R.string.post_delete,
                                 Toast.LENGTH_SHORT).show();
+                        adapterPost.notifyItemChanged(position);
                     }
                 })
                 .setNegativeButton(R.string.confirm_delete_post_no, new DialogInterface.OnClickListener() {
@@ -219,9 +270,35 @@ public class MainActivity extends AppCompatActivity {
         adapterPost.setOnClickComment(new PostAdapter.onClickComment() {
             @Override
             public void onClickComment(Post post) {
-                Intent intent = CommentActivity.commentIntent(MainActivity.this,
-                        post);
+                Intent intent;
+                if (isLogin) {
+                    intent = CommentActivity.commentIntent(MainActivity.this,
+                            post);
+                } else {
+                    intent = LoginActivity.newIntent(MainActivity.this);
+                }
                 startActivity(intent);
+            }
+        });
+        adapterPost.setOnClickUser(new PostAdapter.onClickUser() {
+            @Override
+            public void onClickUser(Post post) {
+                if (auth.getCurrentUser() != null) {
+                    boolean isCurrentUser;
+                    isCurrentUser = post.getUserId().equals(auth.getCurrentUser().getUid());
+                    Intent intent;
+                    if (isCurrentUser) {
+                        intent = ProfileActivity.newIntent(MainActivity.this,
+                                post.getUserId());
+                    } else {
+                        intent = ProfileAnotherUserActivity.anotherUserIntent(MainActivity.this,
+                                post);
+                    }
+                    startActivity(intent);
+                } else {
+                    Intent intent = LoginActivity.newIntent(MainActivity.this);
+                    startActivity(intent);
+                }
             }
         });
     }

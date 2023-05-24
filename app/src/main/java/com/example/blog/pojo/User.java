@@ -1,6 +1,8 @@
 package com.example.blog.pojo;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String userId;
     private String nickname;
@@ -11,31 +13,13 @@ public class User {
     private int favouritePost = 0;
 
 
-    public User(String userId, String nickname, String email, String profileImage) {
+    public User(String userId, String nickname, String email, String profileImage, int myPost, int favouritePost) {
         this.userId = userId;
         this.nickname = nickname;
         this.email = email;
-        this.profileImage = profileImage;
-
-    }
-
-    public User(String userId, String nickname, String email, String password, String profileImage, int myPost, int favouritePost) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
         this.profileImage = profileImage;
         this.myPost = myPost;
         this.favouritePost = favouritePost;
-    }
-
-
-    public User(String userId, String nickname, String email, String password, String profileImage) {
-        this.userId = userId;
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
-        this.profileImage = profileImage;
     }
 
     public User() {
@@ -97,14 +81,4 @@ public class User {
         return password;
     }
 
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + userId + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

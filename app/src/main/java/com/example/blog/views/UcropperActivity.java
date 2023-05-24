@@ -1,4 +1,4 @@
-package com.example.blog.models;
+package com.example.blog.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 

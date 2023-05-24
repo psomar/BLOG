@@ -1,10 +1,6 @@
 package com.example.blog.pojo;
 
-import com.example.blog.pojo.Post;
-import com.example.blog.pojo.User;
-
 import java.io.Serializable;
-import java.util.Date;
 
 public class Comment implements Serializable {
 
@@ -13,20 +9,18 @@ public class Comment implements Serializable {
     private String comment;
     private String nickname;
     private String postId;
-    private String urlAuthorPhoto;
+    private String authorPhoto;
     private String timestamp;
-    private User user;
 
 
-    public Comment(String idComment, String userId, String comment, String nickname, String postId, String urlAuthorPhoto, String timestamp, User user) {
+    public Comment(String idComment, String userId, String comment, String nickname, String postId, String urlAuthorPhoto, String timestamp) {
         this.idComment = idComment;
         this.userId = userId;
         this.comment = comment;
         this.nickname = nickname;
         this.postId = postId;
-        this.urlAuthorPhoto = urlAuthorPhoto;
+        this.authorPhoto = urlAuthorPhoto;
         this.timestamp = timestamp;
-        this.user = user;
     }
 
     public Comment() {
@@ -40,16 +34,12 @@ public class Comment implements Serializable {
         return postId;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public String getNickname() {
         return nickname;
     }
 
-    public String getUrlAuthorPhoto() {
-        return urlAuthorPhoto;
+    public String getAuthorPhoto() {
+        return authorPhoto;
     }
 
     public String getTimestamp() {

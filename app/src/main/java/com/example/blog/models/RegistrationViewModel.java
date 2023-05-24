@@ -1,15 +1,13 @@
-package com.example.blog.view;
+package com.example.blog.models;
 
 import android.net.Uri;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.blog.R;
-import com.example.blog.models.RegistrationActivity;
+import com.example.blog.core.CurrentUserAuthStateListener;
 import com.example.blog.pojo.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,29 +20,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.Map;
-import java.util.UUID;
-
 public class RegistrationViewModel extends ViewModel {
 
     private MutableLiveData<String> error = new MutableLiveData<>();
     private MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>();
-    private MutableLiveData<Boolean> userSent = new MutableLiveData<>();
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private DatabaseReference userReference;
 
     public RegistrationViewModel() {
+        CurrentUserAuthStateListener currentUserAuthStateListener = new CurrentUserAuthStateListener(currentUser);
         auth = FirebaseAuth.getInstance();
-        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    currentUser.setValue(firebaseAuth.getCurrentUser());
-                }
-            }
-        });
+        auth.addAuthStateListener(currentUserAuthStateListener);
         database = FirebaseDatabase.getInstance();
         userReference = database.getReference("User");
     }
@@ -64,7 +52,7 @@ public class RegistrationViewModel extends ViewModel {
                             return;
                         }
                         String userId = firebaseUser.getUid();
-                        String profileImagePath = "users/" + userId + "/profile.jpg";
+                        String profileImagePath = "users/" + userId;
                         StorageReference storageReference = FirebaseStorage.getInstance().
                                 getReference();
                         StorageReference profileImageRef = storageReference.child(profileImagePath);
@@ -75,10 +63,13 @@ public class RegistrationViewModel extends ViewModel {
                                         profileImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                             @Override
                                             public void onSuccess(Uri uri) {
-                                                User user = new User(userId,
+                                                User user = new User(
+                                                        userId,
                                                         nickName,
                                                         email,
-                                                        uri.toString());
+                                                        uri.toString(),
+                                                        0,
+                                                        0);
                                                 userReference.child(userId).setValue(user);
                                             }
                                         });
@@ -99,13 +90,8 @@ public class RegistrationViewModel extends ViewModel {
                 });
     }
 
-
     public LiveData<String> getOnError() {
         return error;
-    }
-
-    public LiveData<Boolean> getPostSent() {
-        return userSent;
     }
 
     public LiveData<FirebaseUser> getCurrentUser() {

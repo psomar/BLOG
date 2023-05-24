@@ -11,14 +11,18 @@
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.3705" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.3705" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/drawable/ic_more_vert.xml" value="0.392" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/drawable/round_border.xml" value="0.412" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/drawable/side_nav_bar.xml" value="0.3705" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_add_post.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_comment.xml" value="0.5" />
-        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_forgot_password.xml" value="0.55" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_forgot_password.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_login.xml" value="0.5" />
-        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_main.xml" value="0.5711556829035339" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_my_post.xml" value="0.5359375" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_post_detail.xml" value="0.5" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_post_editor.xml" value="0.55" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_profile.xml" value="0.67" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_profile_another_user.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_registration.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/activity_ucropper.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/app_bar_profile.xml" value="0.55" />
@@ -30,8 +34,9 @@
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/nav_header_profile.xml" value="0.55" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/post_detail_item.xml" value="0.5" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/post_item.xml" value="0.5" />
-        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/profile_item.xml" value="0.5" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/layout/profile_item.xml" value="0.67" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/menu/activity_main_drawer.xml" value="0.55" />
+        <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/menu/editor.xml" value="0.5489583333333333" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/menu/post_menu.xml" value="0.55" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/menu/profile.xml" value="0.55" />
         <entry key="..\:/Users/PETYA/AndroidStudioProjects/BLOG2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4925" />

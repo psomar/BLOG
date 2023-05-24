@@ -1,12 +1,11 @@
-package com.example.blog.view;
-
-import android.util.Log;
+package com.example.blog.models;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.blog.core.CurrentUserAuthStateListener;
 import com.example.blog.pojo.Post;
 import com.example.blog.pojo.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,11 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Random;
 
 public class AddPostViewModel extends ViewModel {
-
-    private static final String TAG = "AddPostViewModel";
 
     private FirebaseAuth auth;
     private FirebaseDatabase database;
@@ -36,7 +32,7 @@ public class AddPostViewModel extends ViewModel {
 
     private MutableLiveData<List<Post>> posts = new MutableLiveData<>();
     private MutableLiveData<User> users = new MutableLiveData<>();
-    private MutableLiveData<Boolean> postSent = new MutableLiveData<>();
+    private MutableLiveData<Boolean> postSent = new MutableLiveData<>(false);
     private MutableLiveData<String> error = new MutableLiveData<>();
     private MutableLiveData<FirebaseUser> currentUser = new MutableLiveData<>();
     private MutableLiveData<String> nickname = new MutableLiveData<String>();
@@ -46,19 +42,13 @@ public class AddPostViewModel extends ViewModel {
     private String id;
 
     public AddPostViewModel() {
+        CurrentUserAuthStateListener currentUserAuthStateListener = new CurrentUserAuthStateListener(currentUser);
+        auth = FirebaseAuth.getInstance();
+        auth.addAuthStateListener(currentUserAuthStateListener);
         database = FirebaseDatabase.getInstance();
         postReference = database.getReference("Post");
         userReference = database.getReference("User");
-        auth = FirebaseAuth.getInstance();
         String idUser = auth.getUid();
-        auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() != null) {
-                    currentUser.setValue(firebaseAuth.getCurrentUser());
-                }
-            }
-        });
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -83,8 +73,8 @@ public class AddPostViewModel extends ViewModel {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError e) {
+                error.setValue(e.getMessage());
             }
         });
 
@@ -103,8 +93,8 @@ public class AddPostViewModel extends ViewModel {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i(TAG, error.getMessage());
+            public void onCancelled(@NonNull DatabaseError e) {
+                error.setValue(e.getMessage());
             }
         });
         database
@@ -120,7 +110,8 @@ public class AddPostViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onCancelled(@NonNull DatabaseError e) {
+                        error.setValue(e.getMessage());
                     }
                 });
     }
@@ -138,7 +129,7 @@ public class AddPostViewModel extends ViewModel {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.i("errorFromAddPost", e.toString());
+                        error.setValue(e.getMessage());
                     }
                 });
     }
@@ -157,8 +148,8 @@ public class AddPostViewModel extends ViewModel {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.i("errorFromUpdateUserPost", error.toString());
+                    public void onCancelled(@NonNull DatabaseError e) {
+                        error.setValue(e.getMessage());
                     }
                 });
     }

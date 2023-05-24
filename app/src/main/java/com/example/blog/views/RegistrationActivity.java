@@ -1,4 +1,4 @@
-package com.example.blog.models;
+package com.example.blog.views;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,11 +21,8 @@ import android.widget.Toast;
 
 import com.example.blog.R;
 import com.example.blog.databinding.ActivityRegistrationBinding;
-import com.example.blog.view.RegistrationViewModel;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.blog.models.RegistrationViewModel;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -32,9 +30,6 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -75,7 +70,8 @@ public class RegistrationActivity extends AppCompatActivity {
             intent.putExtra(EXTRA_IMAGE, result.toString());
             startActivityForResult(intent, 100);
         });
-        getSupportActionBar().setTitle(R.string.registation_activity);
+        getSupportActionBar().setTitle(R.string.registration_activity);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void onObserveViewModel() {
@@ -106,11 +102,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 String email = binding.editTextEmailRegistration.getText().toString().trim();
                 String password = binding.editTextPasswordRegistration.getText().toString().trim();
                 profileImage = result;
-                if ((nickName.length() != 0) && (email.length() != 0) &&
-                        (password.length() != 0) && (profileImage != null)) {
+                if ((!nickName.isEmpty()) && (!email.isEmpty()) &&
+                        (!password.isEmpty()) && (profileImage != null)) {
                     viewModel.registration(nickName, email, password, profileImage);
                     Toast.makeText(RegistrationActivity.this,
-                            R.string.user_has_registation,
+                            R.string.user_has_registration,
                             Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(RegistrationActivity.this,
@@ -141,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
                         Toast.makeText(RegistrationActivity.this,
-                                "Permission Denied",
+                                R.string.failled_image_permission,
                                 Toast.LENGTH_SHORT).show();
                     }
 
@@ -168,6 +164,15 @@ public class RegistrationActivity extends AppCompatActivity {
             }
             binding.imageViewChangeAvatar.setImageURI(postImageUri);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
